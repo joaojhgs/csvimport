@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import usersRouter from './routes/usersRouter';
+import router from './routes/router';
 
 const app = express();
 
@@ -19,6 +19,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).send(error.message);
 })
 
-app.use('/api/', usersRouter);
+app.use('/api/', router);
 
 export default app;
