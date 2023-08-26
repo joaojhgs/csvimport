@@ -1,11 +1,13 @@
-import User from '../models/user';
+import User from './models/user';
 
 const users: User[] = [];
 
-function searchCustomers(search: string): User[] {
-    return users.filter(c => Object.values(c).some((v: string) => v.includes(search)));
+function getUsers(search: string): User[] {
+    if(search && search.length > 0)
+        return users.filter(c => Object.values(c).some((v: string) => v.toLowerCase().includes(search.toLowerCase())));
+    return users;
 }
 
-function getCustomers(): User[] {
-    return users;
+export default {
+    getUsers,
 }
