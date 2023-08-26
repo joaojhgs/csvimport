@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import router from './routes/router';
-
+import fileUpload from 'express-fileupload';
 const app = express();
 
 app.use(morgan('tiny'));
@@ -15,8 +15,10 @@ app.use(helmet());
 
 app.use(express.json());
 
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).send(error.message);
+app.use(fileUpload());
+
+app.use((error: Error, _: Request, res: Response) => {
+    res.status(500).send(error);
 })
 
 app.use('/api/', router);
