@@ -13,7 +13,7 @@ function getUsers(req: Request, res: Response) {
         res.sendStatus(404);
 }
 
-async function parseCsv(file: Express.Multer.File): Promise<IUser[]> {
+export async function parseCsv(file: Express.Multer.File): Promise<IUser[]> {
     return new Promise((resolve, reject) => {
         const csvData: IUser[] = [];
         const parser = fastcsv.parse({ headers: true })
