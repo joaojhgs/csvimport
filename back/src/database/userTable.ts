@@ -8,6 +8,10 @@ function getUsers(search: string | undefined): User[] {
     return users;
 }
 
+function insertUser(user: User) {
+    users.push(user);
+}
+
 export default {
     getUsers,
 }
