@@ -1,5 +1,4 @@
 import { Empty } from "antd"
-import UploadComponent from "./UploadComponent";
 
 const EmptyComponent = () => {
     return (
@@ -11,9 +10,7 @@ const EmptyComponent = () => {
                     No results found
                 </span>
             }
-        >
-            <UploadComponent dragger />
-        </Empty>
+        />
     )
 }
 

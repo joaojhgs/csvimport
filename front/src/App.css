@@ -28,25 +28,26 @@
   color: #61dafb;
 }
 
-.mainPageContent {
-  width: 100%;
-  min-height: 100%;
-  padding: 50px;
-}
-
 .mainPageheader {
   display: flex;
 }
 
 .mainPageCards {
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  min-height: 100%;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
-.mainPageCard {
-  height: 250px;
+.uploadComponent {
+  margin-top: 20px;
+}
+
+.mainPageContent {
+  width: 100%;
+  min-height: 100%;
+  padding-top: 30px;
+  padding-left: 150px;
+  padding-right: 150px;
 }
 
 @media only screen and (max-width: 600px) {

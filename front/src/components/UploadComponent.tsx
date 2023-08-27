@@ -2,9 +2,9 @@ import { Button, Upload, UploadProps, notification } from "antd";
 import axios from 'axios';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
 
-interface IUploadComponent { dragger: boolean }
+interface IUploadComponent { getUserData: (query?: string) => void, dragger: boolean }
 
-const UploadComponent = ({ dragger }: IUploadComponent) => {
+const UploadComponent = ({ getUserData, dragger }: IUploadComponent) => {
     const [api, contextHolder] = notification.useNotification();
     const { Dragger } = Upload;
     const uploadProps: UploadProps = {
@@ -18,14 +18,14 @@ const UploadComponent = ({ dragger }: IUploadComponent) => {
                 }
             }).then(() => {
                 api.success({ message: 'File uploaded successfully', placement: 'bottomRight' });
-                // getUserData();
+                getUserData();
             }).catch(err => {
                 api.error({ message: err.message, placement: 'bottomRight' });
             });
         },
     };
     if (dragger) return (
-        <>
+        <div  className="uploadComponent">
             {contextHolder}
             <Dragger {...uploadProps}>
                 <p className="ant-upload-drag-icon">
@@ -37,7 +37,7 @@ const UploadComponent = ({ dragger }: IUploadComponent) => {
                     banned files.
                 </p>
             </Dragger>
-        </>
+        </div>
     )
     return (
         <>

@@ -8,18 +8,20 @@ const CardsList = ({items}: {items: IUser[]}) => {
             grid={{
                 gutter: 16,
                 xs: 1,
-                sm: 2,
-                md: 4,
-                lg: 4,
-                xl: 6,
-                xxl: 3,
+                sm: 1,
+                md: 2,
+                lg: 3,
+                xl: 4,
+                xxl: 5,
             }}
+            style={{width: '100%'}}
             pagination={
                 { align: 'center' }
             }
+            size="large"
             dataSource={items}
             renderItem={(item) => (
-                <List.Item>
+                <List.Item >
                     <Card title={item.name} hoverable>
                         <List>
                             <List.Item>

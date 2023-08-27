@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CardsSection from "../components/CardsSection";
 import { IUser } from "../utils/interfaces";
 import axios from 'axios';
+import UploadComponent from "../components/UploadComponent";
 const { Search } = Input;
 const { Content } = Layout;
 
@@ -38,6 +39,7 @@ const MainPage = () => {
                     
                 </div>
                 <CardsSection filteredCards={filteredCards} />
+                <UploadComponent dragger getUserData={getUserData} />
             </div>
         </Content>
     )
