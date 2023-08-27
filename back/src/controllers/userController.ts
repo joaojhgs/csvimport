@@ -42,7 +42,7 @@ async function importUsersFromFile(req: Request, res: Response) {
             message: 'File uploaded and parsed successfully'
         })
     } catch (e) {
-        return res.sendStatus(500)
+        return res.status(500).json(e)
     }
 }
 
