@@ -5,15 +5,15 @@ import { IUser, User } from '../database/models/user';
 
 function getUsers(req: Request, res: Response) {
     const query = req.query.q?.toString();
-    const customer = userTable.getUsers(query);
+    const users = userTable.getUsers(query);
 
-    if (customer.length > 0)
-        res.json(customer);
+    if (users.length > 0)
+        res.json(users);
     else
         res.sendStatus(404);
 }
 
-export async function parseCsv(file: Express.Multer.File): Promise<IUser[]> {
+export async function parseUsersCsv(file: Express.Multer.File): Promise<IUser[]> {
     return new Promise((resolve, reject) => {
         const csvData: IUser[] = [];
         const parser = fastcsv.parse({ headers: true })
@@ -34,22 +34,24 @@ export async function parseCsv(file: Express.Multer.File): Promise<IUser[]> {
     })
 }
 
-function importUsersFromFile(req: Request, res: Response) {
+async function importUsersFromFile(req: Request, res: Response) {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
     }
     const file = req.file;
-    parseCsv(file).then((data) => {
+    try {
+        const data = await parseUsersCsv(file)
         data.forEach((user) => userTable.insertUser(user));
         return res.status(200).json({
             message: 'File uploaded and parsed successfully'
         })
-    }).catch(e => {
-        return res.status(500).json(e)
-    });
+    } catch (e) {
+        return res.sendStatus(500)
+    }
 }
 
 export default {
     getUsers,
     importUsersFromFile,
+    parseUsersCsv,
 }
