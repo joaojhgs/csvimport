@@ -4,7 +4,6 @@ import CardsSection from "../components/CardsSection";
 import { IUser } from "../utils/interfaces";
 import axios from 'axios';
 import UploadComponent from "../components/UploadComponent";
-const { Search } = Input;
 const { Content } = Layout;
 
 const MainPage = () => {
@@ -15,7 +14,7 @@ const MainPage = () => {
             setFilteredCards(response.data);
         })
     };
-    const onValuesChange = (value: {search: string}) => {
+    const onValuesChange = (value: { search: string }) => {
         getUserData(value.search);
     };
 
@@ -24,21 +23,21 @@ const MainPage = () => {
     }, [])
     return (
         <Content>
-            <Form form={form} onValuesChange={onValuesChange}>
+            <Form form={form} onValuesChange={onValuesChange} >
                 <div className="mainPageContent">
                     <div className="mainPageheader">
                         <Form.Item name='search' noStyle>
-                            <Search
+                            <Input
                                 placeholder="Search cards..."
                                 allowClear
-                                enterButton="Search"
                                 size="large"
                             />
                         </Form.Item>
-
+                        <div style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: '5px' }}>
+                            <UploadComponent getUserData={getUserData} />
+                        </div>
                     </div>
                     <CardsSection filteredCards={filteredCards} />
-                    <UploadComponent dragger getUserData={getUserData} />
                 </div>
             </Form>
         </Content>

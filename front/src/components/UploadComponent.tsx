@@ -2,9 +2,9 @@ import { Button, Upload, UploadProps, notification } from "antd";
 import axios from 'axios';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
 
-interface IUploadComponent { getUserData: (query?: string) => void, dragger: boolean }
+interface IUploadComponent { getUserData: (query?: string) => void, dragger?: boolean }
 
-const UploadComponent = ({ getUserData, dragger }: IUploadComponent) => {
+const UploadComponent = ({ getUserData, dragger = false }: IUploadComponent) => {
     const [api, contextHolder] = notification.useNotification();
     const { Dragger } = Upload;
     const uploadProps: UploadProps = {
@@ -44,7 +44,7 @@ const UploadComponent = ({ getUserData, dragger }: IUploadComponent) => {
         <>
             {contextHolder}
             <Upload {...uploadProps}>
-                <Button size='large' icon={<UploadOutlined />}>Upload</Button>
+                <Button size='middle' icon={<UploadOutlined />} type="primary">Upload</Button>
             </Upload>
         </>
     )
