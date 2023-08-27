@@ -1,6 +1,7 @@
 import React from 'react';
-import { ConfigProvider, Layout, theme} from 'antd'
+import { ConfigProvider, Layout, theme } from 'antd'
 import MainPage from './pages/mainPage';
+import './App.css';
 const { Footer } = Layout;
 
 const App: React.FC = () => {
