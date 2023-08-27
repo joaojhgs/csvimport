@@ -1,12 +1,11 @@
 import { Button, Upload, UploadProps, notification } from "antd";
 import axios from 'axios';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined } from '@ant-design/icons'
 
-interface IUploadComponent { getUserData: (query?: string) => void, dragger?: boolean }
+interface IUploadComponent { getUserData: (query?: string) => void}
 
-const UploadComponent = ({ getUserData, dragger = false }: IUploadComponent) => {
+const UploadComponent = ({ getUserData}: IUploadComponent) => {
     const [api, contextHolder] = notification.useNotification();
-    const { Dragger } = Upload;
     const uploadProps: UploadProps = {
         name: 'file',
         accept: 'text/csv',
@@ -25,21 +24,6 @@ const UploadComponent = ({ getUserData, dragger = false }: IUploadComponent) => 
             });
         },
     };
-    if (dragger) return (
-        <div className="uploadComponent">
-            {contextHolder}
-            <Dragger {...uploadProps}>
-                <p className="ant-upload-drag-icon">
-                    <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">
-                    Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                    banned files.
-                </p>
-            </Dragger>
-        </div>
-    )
     return (
         <>
             {contextHolder}
