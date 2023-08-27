@@ -9,7 +9,7 @@ describe('Test Handlers', function () {
         const req = httpMocks.createRequest();
         const res = httpMocks.createResponse()
         userController.getUsers(req, res)
-        expect(res.statusCode).toEqual(404);
+        expect(res._getData()).toEqual('[]');
     });
 
     test('test getUsers with data', () => {
