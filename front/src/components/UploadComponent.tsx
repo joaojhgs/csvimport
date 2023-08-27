@@ -20,12 +20,13 @@ const UploadComponent = ({ getUserData, dragger }: IUploadComponent) => {
                 api.success({ message: 'File uploaded successfully', placement: 'bottomRight' });
                 getUserData();
             }).catch(err => {
-                api.error({ message: err.message, placement: 'bottomRight' });
+                console.log(err)
+                api.error({ message: err.response.data.message, placement: 'bottomRight' });
             });
         },
     };
     if (dragger) return (
-        <div  className="uploadComponent">
+        <div className="uploadComponent">
             {contextHolder}
             <Dragger {...uploadProps}>
                 <p className="ant-upload-drag-icon">
