@@ -1,4 +1,4 @@
-import { Input, Layout } from "antd";
+import { Form, Input, Layout } from "antd";
 import { useEffect, useState } from "react";
 import CardsSection from "../components/CardsSection";
 import { IUser } from "../utils/interfaces";
@@ -8,16 +8,15 @@ const { Search } = Input;
 const { Content } = Layout;
 
 const MainPage = () => {
-    const [searchText, setSearchText] = useState('');
     const [filteredCards, setFilteredCards] = useState<IUser[]>([]);
+    const [form] = Form.useForm();
     const getUserData = (query?: string) => {
         axios.get<IUser[]>(`http://localhost:3000/api/users${query ? `?q=${query}` : ''}`).then((response) => {
             setFilteredCards(response.data);
         })
     };
-    const handleSearch = (value: string) => {
-        setSearchText(value);
-        getUserData(value);
+    const onValuesChange = (value: {search: string}) => {
+        getUserData(value.search);
     };
 
     useEffect(() => {
@@ -25,22 +24,23 @@ const MainPage = () => {
     }, [])
     return (
         <Content>
-            <div className="mainPageContent">
-                <div className="mainPageheader">
-                    <Search
-                        placeholder="Search cards..."
-                        allowClear
-                        enterButton="Search"
-                        size="large"
-                        value={searchText}
-                        onChange={e => setSearchText(e.target.value)}
-                        onSearch={handleSearch}
-                    />
-                    
+            <Form form={form} onValuesChange={onValuesChange}>
+                <div className="mainPageContent">
+                    <div className="mainPageheader">
+                        <Form.Item name='search' noStyle>
+                            <Search
+                                placeholder="Search cards..."
+                                allowClear
+                                enterButton="Search"
+                                size="large"
+                            />
+                        </Form.Item>
+
+                    </div>
+                    <CardsSection filteredCards={filteredCards} />
+                    <UploadComponent dragger getUserData={getUserData} />
                 </div>
-                <CardsSection filteredCards={filteredCards} />
-                <UploadComponent dragger getUserData={getUserData} />
-            </div>
+            </Form>
         </Content>
     )
 }
