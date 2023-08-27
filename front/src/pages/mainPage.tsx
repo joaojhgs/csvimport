@@ -46,7 +46,7 @@ const MainPage = () => {
         getUserData();
     }, [])
     return (
-        <Content >
+        <Content>
             {contextHolder}
             <div className="mainPageContent">
                 <div className="mainPageheader">

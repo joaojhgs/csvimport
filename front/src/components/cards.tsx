@@ -1,13 +1,59 @@
-import { Card, Empty } from "antd"
+import { Card, Empty, List } from "antd"
 import { IUser } from "../utils/interfaces"
+import {AimOutlined, FlagOutlined, StarOutlined} from "@ant-design/icons"
 
 const Cards = ({ filteredCards }: { filteredCards: IUser[] }) => {
 
-    const cards = filteredCards.map((card, index) => (
-        <Card key={index} title={card.name}>
-            {card.city}
-        </Card>
-    ))
+    const cards = <List
+        grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 4,
+            lg: 4,
+            xl: 6,
+            xxl: 3,
+        }}
+        pagination={
+            {align: 'center'}
+        }
+        dataSource={filteredCards}
+        renderItem={(item) => (
+            <List.Item>
+                <Card title={item.name} hoverable>
+                    <List>
+                        <List.Item>
+                            <List.Item.Meta
+                                avatar={
+                                    <AimOutlined />
+                                }
+                                title="City"
+                                description={item.city}
+                            />
+                        </List.Item>
+                        <List.Item>
+                            <List.Item.Meta
+                                avatar={
+                                    <FlagOutlined />
+                                }
+                                title="Country"
+                                description={item.country}
+                            />
+                        </List.Item>
+                        <List.Item>
+                            <List.Item.Meta
+                                avatar={
+                                    <StarOutlined />
+                                }
+                                title="Favorite sport"
+                                description={item.favorite_sport}
+                            />
+                        </List.Item>
+                    </List>
+                </Card>
+            </List.Item>
+        )}
+    />
     const EmptyComponent = () => {
         return (
             <Empty
@@ -22,7 +68,7 @@ const Cards = ({ filteredCards }: { filteredCards: IUser[] }) => {
         )
     }
     return (
-        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', height: '100%' }}>
+        <div className="mainPageCards">
             {filteredCards.length > 0 ? cards : <EmptyComponent />}
         </div>
     )
