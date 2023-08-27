@@ -1,27 +1,22 @@
-import { Button, Input, Layout, Upload, UploadProps, notification } from "antd";
+import { Input, Layout } from "antd";
 import { useEffect, useState } from "react";
 import CardsSection from "../components/CardsSection";
 import { IUser } from "../utils/interfaces";
 import axios from 'axios';
-import { UploadOutlined } from '@ant-design/icons';
 const { Search } = Input;
 const { Content } = Layout;
 
 const MainPage = () => {
     const [searchText, setSearchText] = useState('');
     const [filteredCards, setFilteredCards] = useState<IUser[]>([]);
-    const getUserData = () => {
-        axios.get<IUser[]>('http://localhost:3000/api/users').then((response) => {
-            console.log(response);
+    const getUserData = (query?: string) => {
+        axios.get<IUser[]>(`http://localhost:3000/api/users${query ? `?q=${query}` : ''}`).then((response) => {
             setFilteredCards(response.data);
         })
     };
     const handleSearch = (value: string) => {
-        // const filtered = initialCards.filter(card =>
-        //     card.name.toLowerCase().includes(value.toLowerCase())
-        // );
-        // setSearchText(value);
-        // setFilteredCards(filtered);
+        setSearchText(value);
+        getUserData(value);
     };
 
     useEffect(() => {

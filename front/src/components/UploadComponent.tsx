@@ -1,8 +1,10 @@
 import { Button, Upload, UploadProps, notification } from "antd";
 import axios from 'axios';
-import {InboxOutlined, UploadOutlined} from '@ant-design/icons'
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
 
-const UploadComponent = ({ getUserData, dragger }: { getUserData: () => null, dragger: boolean }) => {
+interface IUploadComponent { dragger: boolean }
+
+const UploadComponent = ({ dragger }: IUploadComponent) => {
     const [api, contextHolder] = notification.useNotification();
     const { Dragger } = Upload;
     const uploadProps: UploadProps = {
@@ -16,7 +18,7 @@ const UploadComponent = ({ getUserData, dragger }: { getUserData: () => null, dr
                 }
             }).then(() => {
                 api.success({ message: 'File uploaded successfully', placement: 'bottomRight' });
-                getUserData();
+                // getUserData();
             }).catch(err => {
                 api.error({ message: err.message, placement: 'bottomRight' });
             });
