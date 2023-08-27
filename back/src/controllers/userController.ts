@@ -6,11 +6,7 @@ import { IUser, User } from '../database/models/user';
 function getUsers(req: Request, res: Response) {
     const query = req.query.q?.toString();
     const users = userTable.getUsers(query);
-
-    if (users.length > 0)
-        res.json(users);
-    else
-        res.sendStatus(404);
+    return res.json(users);
 }
 
 export async function parseUsersCsv(file: Express.Multer.File): Promise<IUser[]> {
