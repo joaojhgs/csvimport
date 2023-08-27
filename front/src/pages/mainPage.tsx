@@ -1,59 +1,29 @@
 import { Input, Layout } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cards from "../components/cards";
 import { IUser } from "../utils/interfaces";
+import axios from 'axios';
 const { Search } = Input;
 const { Content } = Layout;
 
 const MainPage = () => {
-    const initialCards: IUser[] = [
-        {
-            name: 'John Doe',
-            city: 'New York',
-            country: 'USA',
-            favorite_sport: 'Basketball'
-        },
-        {
-            name: 'Jane Smith',
-            city: 'London',
-            country: 'UK',
-            favorite_sport: 'Football'
-        },
-        {
-            name: 'Mike Johnson',
-            city: 'Paris',
-            country: 'France',
-            favorite_sport: 'Tennis'
-        },
-        {
-            name: 'Karen Lee',
-            city: 'Tokyo',
-            country: 'Japan',
-            favorite_sport: 'Swimming'
-        },
-        {
-            name: 'Tom Brown',
-            city: 'Sydney',
-            country: 'Australia',
-            favorite_sport: 'Running'
-        },
-        {
-            name: 'Emma Wilson',
-            city: 'Berlin',
-            country: 'Germany',
-            favorite_sport: 'Basketball'
-        }
-    ];
     const [searchText, setSearchText] = useState('');
-    const [filteredCards, setFilteredCards] = useState<IUser[]>(initialCards);
+    const [filteredCards, setFilteredCards] = useState<IUser[]>([]);
 
     const handleSearch = (value: string) => {
-        const filtered = initialCards.filter(card =>
-            card.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setSearchText(value);
-        setFilteredCards(filtered);
+        // const filtered = initialCards.filter(card =>
+        //     card.name.toLowerCase().includes(value.toLowerCase())
+        // );
+        // setSearchText(value);
+        // setFilteredCards(filtered);
     };
+
+    useEffect(() => {
+        axios.get<IUser[]>('http://localhost:3000/api/users', {}).then((response) => {
+            console.log(response);
+            setFilteredCards(response.data);
+        })
+    }, [])
     return (
         <Content style={{ padding: '0 50px', width: '100%', height: '100%' }}>
             <div style={{ padding: '20px' }}>
