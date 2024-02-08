@@ -11,7 +11,7 @@ const UploadComponent = ({ getUserData}: IUploadComponent) => {
         accept: 'text/csv',
         showUploadList: false,
         customRequest: (data) => {
-            axios.post('http://localhost:3000/api/files', { file: data.file }, {
+            axios.post(`${process.env.REACT_APP_API_URL}/api/files`, { file: data.file }, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

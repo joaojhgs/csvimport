@@ -10,7 +10,7 @@ const MainPage = () => {
     const [filteredCards, setFilteredCards] = useState<IUser[]>([]);
     const [form] = Form.useForm();
     const getUserData = (query?: string) => {
-        axios.get<IUser[]>(`http://localhost:3000/api/users${query ? `?q=${query}` : ''}`).then((response) => {
+        axios.get<IUser[]>(`${process.env.REACT_APP_API_URL}/api/users${query ? `?q=${query}` : ''}`).then((response) => {
             setFilteredCards(response.data);
         })
     };
